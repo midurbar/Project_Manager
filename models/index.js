@@ -1,11 +1,20 @@
 const sequelize= require('./db');
-const Proyectos= require('./proyectos.js');
-const Roles= require('./roles.js');
-const Tareas= require('./tareas.js');
-const Usuarios= require('./usuarios.js');
+const Proyectos= require('./proyectos');
+const Roles= require('./roles');
+const Tareas= require('./tareas');
+const Usuarios= require('./usuarios');
+const Intervencion = require('./intervencion')
+
+//Relaciones entre entidades
+
+Usuarios.belongtoMany(Proyectos, {through: 'participaciones'})
+Proyectos.hasMany(Tareas)
+Tareas.belongsToMany(Usuario, {as: 'asignaciones'})
+Tareas.belongsToMany(Usuario, {as: 'intervenciones', through: Intervencion})
+Usuarios.hasOne(Roles)
+Roles.hasMany(Roles, {as: 'heredados'})
 
 
-//Comentario porque si
 sequelize
   .authenticate()
   .then(() => {
