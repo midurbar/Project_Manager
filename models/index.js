@@ -30,5 +30,6 @@ sequelize
       Proyectos,
       Roles,
       Tareas,
+      Intervencion,
       Usuarios
   }
