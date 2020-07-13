@@ -16,6 +16,17 @@ function login(req,res) {
     
 }
 
+function controlAcceso (permiso) {
+    return function (req, res, next) {
+        if (req.session.usuarios) {
+            next()
+        } else {
+            res.redirect('/login')
+        }
+    }
+}
+
 module.exports = {
-    login
+    login,
+    controlAcceso
 }

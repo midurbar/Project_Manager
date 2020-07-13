@@ -4,7 +4,7 @@ const cookieParser= require('cookie-parser')
 const cookieSession= require('cookie-session')
 require('./models')
 
-const {login} = require('./controllers/autenticacion')
+const {login, controlAcceso} = require('./controllers/autenticacion')
 const {dashboard} = require('./controllers/dashboard')
 
 const app = express()
@@ -23,7 +23,7 @@ app.set('views', './views')
 app.set('view engine', 'ejs')
 
 //Definicion de las rutas
-app.get('/', dashboard)
+app.get('/', controlAcceso(), dashboard)
 app.get('/login', (req, res) => res.render('login'))
 app.get('/', (req, res) => res.render('dashboard'))
 app.post('/login', login)
