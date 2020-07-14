@@ -6,6 +6,7 @@ require('./models')
 
 const {login, controlAcceso} = require('./controllers/autenticacion')
 const {dashboard} = require('./controllers/dashboard')
+const {mostrarTarea} = require('./controllers/tareas')
 
 const app = express()
 
@@ -26,5 +27,7 @@ app.set('view engine', 'ejs')
 app.get('/', controlAcceso("leer-tareas-asignadas"), dashboard)
 app.get('/login', (req, res) => res.render('login'))
 app.post('/login', login)
+
+app.get('/tareas/:id', mostrarTarea)
 
 app.listen(3000)
