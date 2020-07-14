@@ -12,6 +12,7 @@ function dashboard(req, res){
         const tareas = usuarios.tareas.map(tareas => {
             return {
                 nombre: tareas.nombre,
+                link: "/tareas/" + tareas.id,
                 fec_ini: moment(tareas.fec_ini).format("DD/MM/YYYY"),
                 fec_venc: tareas.fec_venc && moment(tareas.fec_venc).format("DD/MM/YYYY")
             }
