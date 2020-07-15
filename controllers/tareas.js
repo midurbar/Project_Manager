@@ -8,6 +8,7 @@ function mostrarTarea(req, res) {
         res.render('tareas', {
             tareas: {
                 link: "/tareas/" + tareas.id,
+                nombre: tareas.nombre,
                 estado: tareas.fec_fin? "Finalizado" : "Pendiente",
                 intervenciones: tareas.intervenciones,
                 iniciada: tareas.intervenciones.some(x => x.fin==null),
@@ -25,7 +26,7 @@ function registrarAccionTarea(req, res) {
     const {accion} = req.body
 
     Tareas.findByPk(id, {include: [Usuarios]})
-    .then(async tarea => {
+    .then(async tareas => {
         const usuarios = await Usuarios.findByPk(req.session.usuarios.id)
 
         if (accion == "start") {

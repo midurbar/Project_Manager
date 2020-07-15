@@ -3,7 +3,7 @@ const Proyectos= require('./proyectos');
 const Roles= require('./roles');
 const Tareas= require('./tareas');
 const Usuarios= require('./usuarios');
-const Intervencion = require('./intervencion')
+const Intervencion = require('./intervencion');
 
 //Relaciones entre entidades
 
@@ -11,7 +11,9 @@ Usuarios.belongsToMany(Proyectos, {through: 'participaciones'})
 Proyectos.hasMany(Tareas)
 Tareas.belongsToMany(Usuarios, {through: 'asignaciones'})
 Usuarios.belongsToMany(Tareas, {through: 'asignaciones'})
-Tareas.belongsToMany(Usuarios, {as: 'intervenciones', through: Intervencion})
+Tareas.hasMany(Intervencion, {as: 'intervenciones'})
+Intervencion.belongsTo(Usuarios)
+Intervencion.belongsTo(Tareas)
 Usuarios.belongsTo(Roles)
 Roles.hasMany(Roles, {as: 'heredados'})
 
