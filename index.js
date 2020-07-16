@@ -7,10 +7,12 @@ require('./models')
 const {login, controlAcceso} = require('./controllers/autenticacion')
 const {dashboard} = require('./controllers/dashboard')
 const {mostrarTarea, registrarAccionTarea} = require('./controllers/tareas')
+const {crearProyecto, listarProyectos, leerProyecto, modificarProyecto, eliminarProyecto} = require('./api/proyectos')
 
 const app = express()
 
 app.use(express.urlencoded({extended: false}))
+app.use(express.json())
 
 app.use(cookieParser())
 app.use(cookieSession({
@@ -30,5 +32,11 @@ app.post('/login', login)
 
 app.get('/tareas/:id', mostrarTarea)
 app.post('/tareas/:id', registrarAccionTarea)
+
+app.post('/api/proyectos',crearProyecto)
+app.get('/api/proyectos',listarProyectos)
+app.get('/api/proyectos/:id',leerProyecto)
+app.put('/api/proyectos/:id',modificarProyecto)
+app.delete('/api/proyectos/:id',eliminarProyecto)
 
 app.listen(3000)
