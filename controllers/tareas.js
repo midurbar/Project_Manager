@@ -1,6 +1,21 @@
 const { Tareas, Intervencion, Usuarios } = require("../models");
 const moment = require("moment");
 
+/**
+ * Controlador para mostrar la informacion de una tarea en concreto. La
+ * informacion de la tarea se obtiene mediante una consulta a la base de datos,
+ * con todas las intervenciones asociadas a dicha tarea.
+ *
+ * La consulta trabaja de forma asincrona, de tal modo que los datos de la tarea
+ * se obtienen en una promesa.
+ * 
+ * Los datos obtenidos de la consulta se visualizan en la vista.
+ * 
+ * @param {*} req Peticion, que contiene los datos de la peticion, entre los cuales esta el 
+ * ID de la tarea
+ * @param {*} res Respuesta
+ */
+
 function mostrarTarea(req, res) {
     const id = req.params.id;
     Tareas.findByPk(id, {include: ['intervenciones']})
