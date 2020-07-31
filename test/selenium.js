@@ -3,54 +3,53 @@ var assert = require('assert');
 const { doesNotMatch } = require('assert');
 
 describe("Formulario de login", function () {
-
-    it("Inicia sesion con exito", async function () {
+  
+    it("Inicia sesión con éxito", async function () {
         this.timeout(10000);
 
         let driver = await new Builder().forBrowser('chrome').build();
         try {
             // Navigate to Url
-            await driver.get('http://www.localhost:3000/login');
+            await driver.get('http://localhost:3000/login');
 
-            //Introduce email, contraseña y pulsa enter
+            // Introduce email, contraseña y pulsa enter
             await driver.findElement(By.name('email')).sendKeys('armm@gmail.com');
             await driver.findElement(By.name('password')).sendKeys('123456', Key.ENTER);
 
             let firstResult = await driver.wait(until.elementLocated(By.css('h1')), 10000);
 
             //console.log(await firstResult.getAttribute('textContent'));
-            assert.equal("Bienvenido, Usuario", await firstResult.getAttribute('textContent'));
-
+            assert.equal("Bienvenido, Antonio", await (await firstResult.getAttribute('textContent')).trim());
 
         }
-        finally {
-           await driver.quit();
+        finally{
+            await driver.quit();
         }
 
     })
 
 
-    it("Inicia sesion con exito", async function () {
+    it("No inicia sesión con password incorrecta", async function () {
         this.timeout(10000);
 
         let driver = await new Builder().forBrowser('chrome').build();
+
         try {
             // Navigate to Url
-            await driver.get('http://www.localhost:3000/login');
+            await driver.get('http://localhost:3000/login');
 
-            //Introduce email, contraseña y pulsa enter
+            // Introduce email, contraseña y pulsa enter
             await driver.findElement(By.name('email')).sendKeys('armm@gmail.com');
-            await driver.findElement(By.name('password')).sendKeys('dadadaa', Key.ENTER);
+            await driver.findElement(By.name('password')).sendKeys('adadasdadaf', Key.ENTER);
 
-            let firstResult = await driver.wait(until.elementLocated(By.css('h1')), 10000);
+            let firstResult = await driver.wait(until.elementLocated(By.css('div.alert.alert-danger')), 10000);
 
             //console.log(await firstResult.getAttribute('textContent'));
-            assert.equal("Bienvenido, Usuario", await firstResult.getAttribute('textContent'));
-
+            assert.ok(firstResult);
 
         }
-        finally {
-           await driver.quit();
+        finally{
+            await driver.quit();
         }
 
     })
