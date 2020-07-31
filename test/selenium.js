@@ -1,8 +1,11 @@
 const {Builder, By, Key, until} = require('selenium-webdriver');
+var assert = require('assert');
+const { doesNotMatch } = require('assert');
 
 describe("Formulario de login", function () {
 
     it("Inicia sesion con exito", function () {
+        this.timeout(10000);
 
         let driver = await new Builder().forBrowser('chrome').build();
         try {
@@ -11,11 +14,14 @@ describe("Formulario de login", function () {
 
             //Introduce email, contraseña y pulsa enter
             await driver.findElement(By.name('email')).sendKeys('armm@gmail.com');
-            await driver.findElement(By.name('password')).sendKeys('123456', key.ENTER);
+            await driver.findElement(By.name('password')).sendKeys('123456', Key.ENTER);
 
             let firstResult = await driver.wait(until.elementLocated(By.css('h1')), 10000);
 
-            console.log(await firstResult.getAttribute('textContent'));
+            //console.log(await firstResult.getAttribute('textContent'));
+            assert.equal("Bienvenido, Usuario", await firstResult.getAttribute('textContent'));
+
+
         }
         finally {
             driver.quit();
