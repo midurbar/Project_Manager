@@ -1,4 +1,4 @@
-const tareas = require("../controllers/tareas")
+const tareas = require("../models")
 
 
 function crearTarea (req, res) {
