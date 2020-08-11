@@ -1,4 +1,4 @@
-const tareas = require("../models")
+const Tareas = require("../models")
 
 
 function crearTarea (req, res) {
