@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const cookieParser= require('cookie-parser')
 const cookieSession= require('cookie-session')
+const cors = require('cors')
 require('./models')
 
 const {login, controlAcceso} = require('./controllers/autenticacion')
@@ -16,6 +17,7 @@ const app = express()
 
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
+app.use(cors())
 
 app.use(cookieParser())
 app.use(cookieSession({
